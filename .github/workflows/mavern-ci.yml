@@ -28,4 +28,5 @@ jobs:
 
       # Runs Maven test
       - name: Run unit tests with Maven
+        working-directory: ./maven-archetype-quickstart
         run: mvn --batch-mode test # --batch-mode runs Maven in non-interactive mode
