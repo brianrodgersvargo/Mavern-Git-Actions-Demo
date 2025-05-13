@@ -13,12 +13,15 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write   # For dorny/test-reporter to create check runs
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Sets up Java Development Kit
+      # Sets up Java
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
