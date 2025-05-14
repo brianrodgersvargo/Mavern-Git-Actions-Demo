@@ -1,13 +1,10 @@
-name: Java CI with Maven
+name: Java CI with Maven and TestNG
 
 on:
-  # Triggers on push or pull request to main
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
-  # Allows manual run
   workflow_dispatch:
 
 jobs:
@@ -15,41 +12,36 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      checks: write   # For dorny/test-reporter to create check runs
+      checks: write
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Sets up Java
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           java-version: '17'
-          distribution: 'temurin' # distribution of OpenJDK
-          cache: 'maven' # Cache Maven dependencies
+          distribution: 'temurin'
+          cache: 'maven'
 
-      # Runs Maven test
       - name: Run unit tests with Maven
         working-directory: ./maven-archetype-quickstart
-        run: mvn --batch-mode # --batch-mode runs Maven in non-interactive mode
-      
-      # Upload TestNG HTML reports
-      # - name: Upload TestNG HTML Report
-      #   uses: actions/upload-artifact@v4
-      #   if: always() # Upload even if tests fail, to see failure reports
-      #   with:
-      #     name: testng-html-report
-      #     path: ./maven-archetype-quickstart/test-output/ # Path to TestNG's default HTML output
-      #     retention-days: 1
-      
-      # html test report
+        run: mvn --batch-mode test
+
       - name: Publish Test Results Summary (dorny/test-reporter)
         uses: dorny/test-reporter@v1
         if: always()
         with:
           name: Maven Test Results
-          path: ./maven-archetype-quickstart/target/surefire-reports/TEST-*.xml
+          path: /maven-archetype-quickstart/target/surefire-reports/*.xml
           reporter: java-junit
           fail-on-error: 'true'
 
+      # - name: Upload TestNG HTML Report Artifact
+      #   uses: actions/upload-artifact@v4
+      #   if: always()
+      #   with:
+      #     name: testng-html-report
+      #     path: ./maven-archetype-quickstart/test-output/
+      #     retention-days: 1
