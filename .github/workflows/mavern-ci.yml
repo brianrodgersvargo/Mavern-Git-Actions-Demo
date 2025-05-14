@@ -27,7 +27,7 @@ jobs:
 
       - name: Run unit tests with Maven
         working-directory: ./maven-archetype-quickstart
-        run: mvn --batch-mode
+        run: mvn --batch-mode test
 
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
