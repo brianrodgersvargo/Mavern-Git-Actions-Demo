@@ -27,16 +27,22 @@ jobs:
 
       - name: Run unit tests with Maven
         working-directory: ./maven-archetype-quickstart
-        run: mvn --batch-mode test
+        run: mvn --batch-mode
 
-      - name: Publish Test Results Summary (dorny/test-reporter)
-        uses: dorny/test-reporter@v1
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
-          name: Maven Test Results
-          path: /maven-archetype-quickstart/target/surefire-reports/*.xml
-          reporter: java-junit
-          fail-on-error: 'true'
+          files: ./maven-archetype-quickstart/target/surefire-reports/*.xml
+
+      # - name: Publish Test Results Summary (dorny/test-reporter) for junit
+      #   uses: dorny/test-reporter@v1
+      #   if: always()
+      #   with:
+      #     name: Maven Test Results
+      #     path: ./maven-archetype-quickstart/target/surefire-reports/*.xml
+      #     reporter: java-junit
+      #     fail-on-error: 'true'
 
       # - name: Upload TestNG HTML Report Artifact
       #   uses: actions/upload-artifact@v4
