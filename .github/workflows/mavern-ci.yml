@@ -40,7 +40,7 @@ jobs:
         if: always()
         with:
           name: testng-html-report
-          path: maven-archetype-quickstart/test-output/
+          path: ./maven-archetype-quickstart/test-output/
       
       # # html test report for junit (TestNG does this w/o an external library)
       # - name: Publish Test Report # Show tests in UI (adds html link)
