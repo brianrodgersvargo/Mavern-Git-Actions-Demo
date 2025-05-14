@@ -34,13 +34,22 @@ jobs:
         working-directory: ./maven-archetype-quickstart
         run: mvn --batch-mode test # --batch-mode runs Maven in non-interactive mode
       
-      # Test report
-      - name: Publish Test Report # Show tests in UI (adds html link)
-        uses: dorny/test-reporter@v1
-        if: always() # Run even if previous tests fail
+      # Upload TestNG HTML reports
+      - name: Upload TestNG HTML Report
+        uses: actions/upload-artifact@v4 # gh action to upload artifacts (test results)
+        if: always()
         with:
-          name: Maven TestNG Tests
-          path: maven-archetype-quickstart/target/surefire-reports/*.xml
-          reporter: java-testng
-          fail-on-error: 'true'
+          name: testng-html-report
+          path: maven-archetype-quickstart/test-output/
+s
+      
+      # # html test report for junit (TestNG does this w/o an external library)
+      # - name: Publish Test Report # Show tests in UI (adds html link)
+      #   uses: dorny/test-reporter@v1
+      #   if: always() # Run even if previous tests fail
+      #   with:
+      #     name: Maven TestNG Tests
+      #     path: maven-archetype-quickstart/target/surefire-reports/*.xml
+      #     reporter: java-junit
+      #     fail-on-error: 'true'
 
