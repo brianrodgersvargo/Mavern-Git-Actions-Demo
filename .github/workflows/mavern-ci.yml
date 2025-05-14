@@ -40,7 +40,7 @@ jobs:
         if: always()
         with:
           name: Maven Test Results
-          path: ./maven-archetype-quickstart/target/surefire-reports/*.xml
+          path: /maven-archetype-quickstart/target/surefire-reports/*.xml
           reporter: java-junit
           fail-on-error: 'true'
 
