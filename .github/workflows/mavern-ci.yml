@@ -40,15 +40,16 @@ jobs:
       #   if: always() # Upload even if tests fail, to see failure reports
       #   with:
       #     name: testng-html-report
-      #     path: ./maven-archetype-quickstart/test-output/ # Path to TestNG's default HTML output
+      #     path: ./maven-archetype-quickstart/test-output/ # Path to TestNG's HTML output
       #     retention-days: 1
       
-      - name: Publish Test Report # Show tests in UI (adds html link)
+      - name: Publish Test Results Summary # Displays html test summary in git
         uses: dorny/test-reporter@v1
-        if: always() # Run even if previous tests fail
+        if: always()
         with:
-          name: Maven TestNG Tests
-          path: maven-archetype-quickstart/target/surefire-reports/*.xml
+          name: Maven Test Results
+          path: ./maven-archetype-quickstart/target/surefire-reports/*.xml
           reporter: java-junit
           fail-on-error: 'true'
+
 
