@@ -32,7 +32,7 @@ jobs:
       # Runs Maven test
       - name: Run unit tests with Maven
         working-directory: ./maven-archetype-quickstart
-        run: mvn --batch-mode test # --batch-mode runs Maven in non-interactive mode
+        run: mvn --batch-mode -X test # --batch-mode runs Maven in non-interactive mode
       
       # Upload TestNG HTML reports
       - name: Upload TestNG HTML Report
