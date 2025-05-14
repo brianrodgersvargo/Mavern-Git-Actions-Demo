@@ -35,11 +35,12 @@ jobs:
         run: mvn --batch-mode -X test # --batch-mode runs Maven in non-interactive mode
       
       # Upload TestNG HTML reports
-      - name: Upload Test Results
+      - name: Upload TestNG HTML Report
         uses: actions/upload-artifact@v4
+        if: always() # Upload even if tests fail, to see failure reports
         with:
-          name: Test Results
-          path: ./maven-archetype-quickstart/target/surefire-reports
+          name: testng-html-report
+          path: ./maven-archetype-quickstart/test-output/ # Path to TestNG's default HTML output
           retention-days: 1
       
       # # html test report for junit (TestNG does this w/o an external library)
