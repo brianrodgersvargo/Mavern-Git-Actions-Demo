@@ -33,13 +33,14 @@ jobs:
       - name: Run unit tests with Maven
         working-directory: ./maven-archetype-quickstart
         run: mvn --batch-mode test # --batch-mode runs Maven in non-interactive mode
-
+      
       # Test report
-      - name: Publish Test Report # Show tests in UI
+      - name: Publish Test Report # Show tests in UI (adds html link)
         uses: dorny/test-reporter@v1
         if: always() # Run even if previous tests fail
         with:
-          name: Maven JUnit Tests
+          name: Maven TestNG Tests
           path: maven-archetype-quickstart/target/surefire-reports/*.xml
-          reporter: java-junit
-          fail-on-error: 'true' # Fails the workflow if tests failed
+          reporter: java-testng
+          fail-on-error: 'true'
+
